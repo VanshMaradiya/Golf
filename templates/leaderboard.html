@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<h2>Tournament Leaderboard</h2>
+
+<input id="tournament_id" type="number" placeholder="Tournament ID"><br><br>
+
+<button onclick="loadLeaderboard()">Load Leaderboard</button>
+
+<pre id="result"></pre>
+
+<script>
+function loadLeaderboard() {
+
+    const t = document.getElementById("tournament_id").value;
+
+    fetch(`/api/leaderboard/tournaments/${t}`)
+        .then(r => r.json())
+        .then(d => {
+            document.getElementById("result").innerText =
+                JSON.stringify(d, null, 2);
+        });
+}
+</script>
+
+</body>
+</html>

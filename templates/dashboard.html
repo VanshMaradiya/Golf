@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<h3>Redirecting...</h3>
+
+<script>
+const userId = localStorage.getItem("user_id");
+const role = localStorage.getItem("role");
+
+// If not logged in, go back to login
+if (!userId || !role) {
+    window.location.href = "/";
+}
+
+// Redirect based on role
+if (role === "admin") {
+    window.location.href = "/admin";
+} else {
+    window.location.href = "/player";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Player Panel</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<div class="topbar">🏌️ Golf Management System</div>
+
+<div class="container fade-in">
+
+<h2>🏌️ Player Panel</h2>
+
+<!-- PLAYER PROFILE -->
+<div class="card profile-card">
+    <div class="avatar">🏌️</div>
+    <div>
+        <h3 id="playerName">Player</h3>
+        <p id="welcome"></p>
+    </div>
+</div>
+<!-- LEADERBOARD -->
+<div class="card">
+
+<h3>🏆 Leaderboard</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Total Strokes</th>
+        </tr>
+    </thead>
+
+    <tbody id="leaderboardTable"></tbody>
+</table>
+
+</div>
+
+<!-- TOURNAMENTS -->
+<div class="card">
+    <h3>🏆 Tournaments</h3>
+
+    <button onclick="loadTournaments()">Load Tournaments</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="tournamentTable"></tbody>
+    </table>
+</div>
+
+<!-- ADD SCORE -->
+<div class="card">
+
+<h3>⛳ Add Score</h3>
+
+<input id="tournament_id" type="number" placeholder="Tournament ID">
+<input id="hole_id" type="number" placeholder="Hole (1–18)">
+<input id="strokes" type="number" placeholder="Strokes">
+
+<button onclick="addScore()">Submit Score</button>
+
+<p id="score_msg" class="msg"></p>
+
+</div>
+
+</div>
+
+<script>
+/* ================= AUTH CHECK ================= */
+
+const userId = localStorage.getItem("user_id");
+const role = localStorage.getItem("role");
+
+if (!userId || role !== "player") {
+    alert("Unauthorized");
+    window.location.href = "/";
+}
+
+document.getElementById("welcome").innerText =
+    "User ID: " + userId;
+
+/* ================= COMMON HEADERS ================= */
+
+function headers() {
+    return {
+        "Content-Type": "application/json",
+        "X-User-Id": userId,
+        "X-User-Role": role
+    }
+}
+/* ================= LOAD LEADERBOARD ================= */
+
+function loadLeaderboard(tournamentId) {
+
+    fetch(`/api/leaderboard/tournaments/${tournamentId}`)
+    .then(r => r.json())
+    .then(d => {
+
+        const table = document.getElementById("leaderboardTable");
+        table.innerHTML = "";
+
+        d.leaderboard.forEach(p => {
+
+            let style = "";
+
+            // Highlight winner
+            if (p.rank === 1) {
+                style = "style='background:#d4edda;font-weight:bold'";
+            }
+
+            table.innerHTML += `
+                <tr ${style}>
+                    <td>${p.rank}</td>
+                    <td>${p.player_name}</td>
+                    <td>${p.total_strokes}</td>
+                </tr>
+            `;
+        });
+
+    })
+    .catch(() => console.log("Leaderboard load failed"));
+}
+
+/* ================= LOAD TOURNAMENTS ================= */
+
+function loadTournaments() {
+
+    fetch("/api/player/tournaments", { headers: headers() })
+    .then(r => r.json())
+    .then(data => {
+
+        const table = document.getElementById("tournamentTable");
+        table.innerHTML = "";
+
+        data.forEach(t => {
+
+            table.innerHTML += `
+                <tr onclick="loadLeaderboard(${t.id})">
+                    <td>${t.id}</td>
+                    <td>${t.name}</td>
+                    <td>${t.status}</td>
+                </tr>
+            `;
+        });
+
+        // auto load first tournament leaderboard
+        if (data.length > 0) {
+            loadLeaderboard(data[0].id);
+        }
+
+    })
+    .catch(() => alert("Server error"));
+}
+
+/* ================= ADD SCORE ================= */
+
+function addScore() {
+
+    const t = tournament_id.value;
+    const h = hole_id.value;
+    const s = strokes.value;
+
+    if (!t || !h || !s) {
+        score_msg.innerText = "Please fill all fields";
+        return;
+    }
+
+    fetch(`/api/scores/tournaments/${t}/holes/${h}`, {
+        method: "POST",
+        headers: headers(),
+        body: JSON.stringify({ strokes: parseInt(s) })
+    })
+    .then(r => r.json())
+    .then(d => {
+        score_msg.innerText = d.message || "Score submitted!";
+    })
+    .catch(() => score_msg.innerText = "Server error");
+}
+
+/* Auto load tournaments */
+loadTournaments();
+
+</script>
+
+</body>
+</html>

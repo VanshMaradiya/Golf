@@ -1,0 +1,681 @@
+/* ================= GLOBAL RESET ================= */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ================= GOLF COURSE BACKGROUND ================= */
+body {
+  min-height: 100vh;
+  background: 
+    radial-gradient(ellipse at 20% 90%, rgba(45, 163, 94, 0.25) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 15%, rgba(28, 120, 68, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(18, 92, 54, 0.15) 0%, transparent 60%),
+    linear-gradient(155deg, 
+      #0d4227 0%,
+      #13623a 15%,
+      #1a7c4a 30%,
+      #2e9b62 45%,
+      #3db978 60%,
+      #4fd18e 75%,
+      #5fe19e 90%,
+      #6aebaa 100%
+    );
+  background-attachment: fixed;
+  background-size: 400% 400%;
+  animation: golfCourseShift 35s ease infinite;
+  padding: 20px;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 2px;
+  height: 150px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+  box-shadow: 2px 0 10px rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+@keyframes golfCourseShift {
+  0%, 100% { background-position: 0% 0%; }
+  25% { background-position: 50% 25%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 25% 75%; }
+}
+
+/* ================= MAIN TITLE STYLING ================= */
+.main-title {
+  text-align: center;
+  margin: 0 0 40px 0;
+  padding: 0;
+  position: relative;
+}
+
+.main-title h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0;
+  padding: 0;
+  color: transparent;
+  background: linear-gradient(90deg, 
+    #0d4227 0%, 
+    #1a7c4a 25%, 
+    #2e9b62 50%, 
+    #4fd18e 75%, 
+    #6aebaa 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+}
+
+.main-title h1::before {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 40px;
+  background: linear-gradient(to bottom, #8B4513, #A0522D);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.main-title h1::after {
+  content: '⛳';
+  position: absolute;
+  top: -20px;
+  right: -40px;
+  font-size: 2.5rem;
+  transform: rotate(15deg);
+  animation: flagWave 2s ease-in-out infinite alternate;
+  filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.3));
+}
+
+@keyframes flagWave {
+  0% { transform: rotate(10deg); }
+  100% { transform: rotate(20deg); }
+}
+
+.main-title .title-decoration {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  top: 50%;
+  left: 0;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.main-title .title-decoration::before,
+.main-title .title-decoration::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.main-title .title-decoration::before {
+  left: 15%;
+  box-shadow: -25px 0 0 white, 25px 0 0 white, 50px 0 0 white;
+}
+
+.main-title .title-decoration::after {
+  right: 15%;
+  box-shadow: 25px 0 0 white, 50px 0 0 white, 75px 0 0 white;
+}
+
+.main-title .subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+.main-title .subtitle::before,
+.main-title .subtitle::after {
+  content: '•';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #198754;
+  font-size: 1.5rem;
+}
+
+.main-title .subtitle::before { left: -25px; }
+.main-title .subtitle::after { right: -25px; }
+
+.main-title::after {
+  content: '';
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    #198754 20%,
+    #198754 80%,
+    transparent 100%
+  );
+}
+
+/* ================= MAIN CONTAINER ================= */
+.container {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 18px;
+  padding: 35px;
+  max-width: 1000px;
+  width: 92%;
+  margin: 40px auto;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  animation: fadeIn 1s ease;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), transparent 70%);
+  border-radius: 50%;
+  filter: blur(5px);
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: 
+    radial-gradient(circle at 10px 10px, rgba(25, 135, 84, 0.1) 2px, transparent 3px),
+    radial-gradient(circle at 30px 10px, rgba(25, 135, 84, 0.1) 2px, transparent 3px),
+    radial-gradient(circle at 20px 20px, rgba(25, 135, 84, 0.1) 2px, transparent 3px),
+    radial-gradient(circle at 10px 30px, rgba(25, 135, 84, 0.1) 2px, transparent 3px),
+    radial-gradient(circle at 30px 30px, rgba(25, 135, 84, 0.1) 2px, transparent 3px);
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= TOP BAR ================= */
+.topbar {
+  background: linear-gradient(to right, #0d4227, #13623a, #1a7c4a);
+  padding: 16px 30px;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  border-radius: 12px 12px 0 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.topbar::before {
+  content: '⛳';
+  position: absolute;
+  left: 30px;
+  font-size: 24px;
+}
+
+.topbar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: flagWaveAnim 8s infinite linear;
+}
+
+@keyframes flagWaveAnim {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ================= CARDS ================= */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 25px;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(25, 135, 84, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, #0d4227, #1a7c4a, #4fd18e);
+}
+
+/* ================= HEADERS ================= */
+h2, h3 {
+  text-align: center;
+  color: #1e3d2f;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.8rem;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #198754, transparent);
+}
+
+/* ================= PROFILE ================= */
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0d4227, #1a7c4a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  box-shadow: 
+    0 6px 20px rgba(13, 66, 39, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  position: relative;
+}
+
+.avatar::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 24px;
+  height: 24px;
+  background: #ff6b6b;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* ================= FORMS ================= */
+.inputs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+input, select {
+  width: 60%;
+  padding: 12px 15px;
+  margin: 10px auto;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  display: block;
+  transition: .3s;
+  font-size: 1rem;
+  background: white;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #198754;
+  box-shadow: 0 0 8px rgba(25, 135, 84, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ================= BUTTONS ================= */
+button {
+  width: 220px;
+  margin: 15px auto;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(to right, #0d4227, #1a7c4a);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(13, 66, 39, 0.3);
+  font-size: 1rem;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(13, 66, 39, 0.4);
+  background: linear-gradient(to right, #13623a, #2e9b62);
+}
+
+button::after {
+  content: '⛳';
+  position: absolute;
+  right: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+button:hover::after {
+  opacity: 1;
+}
+
+/* ================= TABLE ================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(25, 135, 84, 0.1);
+  margin: 20px 0;
+}
+
+th {
+  background: linear-gradient(to right, #0d4227, #1a7c4a);
+  color: white;
+  padding: 16px;
+  font-weight: 600;
+  position: relative;
+}
+
+th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+td, th {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid rgba(25, 135, 84, 0.1);
+}
+
+tr:hover {
+  background: rgba(244, 253, 248, 0.8);
+  transition: background 0.2s ease;
+}
+
+/* ================= MEDALS ================= */
+.gold {
+  background: linear-gradient(135deg, #ffd700, #ffed4e) !important;
+  color: #333;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+.silver {
+  background: linear-gradient(135deg, #cfd2d6, #e8e9eb) !important;
+  color: #333;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+.bronze {
+  background: linear-gradient(135deg, #cd7f32, #e09e58) !important;
+  color: white;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+/* ================= SCORES ================= */
+.birdie {
+  color: #27ae60;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(39, 174, 96, 0.2);
+  position: relative;
+}
+
+.birdie::before {
+  content: '🦅';
+  margin-right: 5px;
+}
+
+.par {
+  color: #2980b9;
+  font-weight: 700;
+}
+
+.par::before {
+  content: '🕳️';
+  margin-right: 5px;
+}
+
+.bogey {
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+/* ================= MESSAGE ================= */
+.msg {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #c0392b;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(192, 57, 43, 0.05);
+  border-left: 4px solid #c0392b;
+  box-shadow: 0 3px 10px rgba(192, 57, 43, 0.1);
+}
+
+/* ================= LOGIN ================= */
+.login-box {
+  max-width: 420px;
+  margin: 120px auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+/* ================= SCROLLBAR ================= */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #0d4227, #1a7c4a);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #13623a, #2e9b62);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+  .container {
+    width: 95%;
+    padding: 25px;
+  }
+  
+  .main-title h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
+  .container {
+    padding: 20px;
+    margin: 20px auto;
+    width: 98%;
+  }
+  
+  .main-title h1 {
+    font-size: 2.5rem;
+  }
+  
+  .main-title h1::after {
+    font-size: 2rem;
+    right: -30px;
+    top: -15px;
+  }
+  
+  .main-title .subtitle {
+    font-size: 0.9rem;
+  }
+  
+  input, select {
+    width: 90%;
+  }
+  
+  button {
+    width: 90%;
+    max-width: 300px;
+  }
+  
+  .topbar::before {
+    display: none;
+  }
+  
+  .container::before,
+  .container::after {
+    display: none;
+  }
+  
+  .main-title .title-decoration {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title h1 {
+    font-size: 2rem;
+  }
+  
+  .main-title h1::after {
+    font-size: 1.5rem;
+    right: -20px;
+    top: -10px;
+  }
+  
+  .card {
+    padding: 20px;
+  }
+  
+  .avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+  
+  .topbar {
+    font-size: 18px;
+    padding: 12px 20px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .login-box {
+    margin: 60px auto;
+    padding: 25px;
+  }
+}
+
+/* ================= PRINT STYLES ================= */
+@media print {
+  body {
+    background: white !important;
+    padding: 0;
+  }
+  
+  .container {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  button {
+    display: none;
+  }
+}

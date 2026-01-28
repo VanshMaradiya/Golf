@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<div class="topbar">🏌️ Golf Management System</div>
+
+<div class="container fade-in">
+
+<h2>🛠 Admin Panel</h2>
+<p id="welcome" style="text-align:center"></p>
+
+<!-- CREATE COURSE -->
+<div class="card">
+
+<h3>Create Golf Course</h3>
+
+<div class="inputs"><input id="course_name" placeholder="Course Name"></div>
+<div class="inputs"><input id="course_location" placeholder="Location"></div>
+<div class="inputs"><input id="course_holes" type="number" placeholder="Total Holes (18)"></div>
+
+<button onclick="createCourse()">Create Course</button>
+
+<p id="course_msg" class="msg"></p>
+
+</div>
+
+<!-- ADD HOLE -->
+<div class="card">
+
+<h3>Add Hole</h3>
+
+<div class="inputs"><input id="hole_course_id" type="number" placeholder="Course ID"></div>
+<div class="inputs"><input id="hole_number" type="number" placeholder="Hole Number"></div>
+<div class="inputs"><input id="hole_par" type="number" placeholder="Par"></div>
+
+<button onclick="addHole()">Add Hole</button>
+
+<p id="hole_msg" class="msg"></p>
+
+</div>
+
+<!-- CREATE TOURNAMENT -->
+<div class="card">
+
+<h3>Create Tournament</h3>
+
+<div class="inputs"><input id="t_name" placeholder="Tournament Name"></div>
+<div class="inputs"><input id="t_course" type="number" placeholder="Course ID"></div>
+<div class="inputs"><input id="t_start" type="date"></div>
+<div class="inputs"><input id="t_end" type="date"></div>
+
+<div class="inputs">
+<select id="t_status">
+    <option value="ongoing">Ongoing</option>
+    <option value="upcoming">Upcoming</option>
+    <option value="completed">Completed</option>
+</select>
+</div>
+
+<button onclick="createTournament()">Create Tournament</button>
+
+<p id="tournament_msg" class="msg"></p>
+
+</div>
+
+<!-- LOGOUT -->
+<button onclick="logout()">🚪 Logout</button>
+
+</div>
+
+<script>
+/* ================= AUTH CHECK ================= */
+
+requireLogin();
+
+const userId = localStorage.getItem("user_id");
+const role = localStorage.getItem("role");
+
+if (role !== "admin") {
+    alert("Unauthorized");
+    window.location.href = "/";
+}
+
+document.getElementById("welcome").innerText =
+    "Welcome Admin (User ID: " + userId + ")";
+</script>
+
+<script src="/static/js/app.js"></script>
+<script src="/static/js/admin.js"></script>
+
+</body>
+</html>
