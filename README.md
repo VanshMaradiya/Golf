@@ -53,5 +53,4 @@ This is a learning + portfolio project.
 
 ---
 
-## 📁 Project Structure
 
