@@ -9,10 +9,8 @@ leaderboard_bp = Blueprint(
     url_prefix="/api/leaderboard"
 )
 
-
-# ---------------------------
 # TOURNAMENT LEADERBOARD
-# ---------------------------
+
 @leaderboard_bp.route("/tournaments/<int:tournament_id>", methods=["GET"])
 def tournament_leaderboard(tournament_id):
     # Validate tournament existence
