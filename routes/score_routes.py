@@ -3,10 +3,8 @@ from services.score_service import add_or_update_score, get_user_scores
 
 score_bp = Blueprint("score", __name__, url_prefix="/api/scores")
 
-
-# ---------------------------
 # ADD / UPDATE SCORE
-# ---------------------------
+
 @score_bp.route(
     "/tournaments/<int:tournament_id>/holes/<int:hole_id>",
     methods=["POST"]
@@ -33,9 +31,8 @@ def add_score(tournament_id, hole_id):
     return jsonify({"message": message}), 200
 
 
-# ---------------------------
 # GET MY SCORES
-# ---------------------------
+
 @score_bp.route("/tournaments/<int:tournament_id>/my-scores", methods=["GET"])
 def my_scores(tournament_id):
     user_id = request.headers.get("X-User-Id")
