@@ -5,10 +5,8 @@ from utils.permissions import admin_required
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/api/admin")
 
-
-# -------------------------
 # CREATE GOLF COURSE
-# -------------------------
+
 @admin_bp.route("/courses", methods=["POST"])
 @admin_required
 def create_course():
@@ -38,10 +36,8 @@ def create_course():
         "course_id": course.id
     }), 201
 
-
-# -------------------------
 # GET ALL COURSES (PUBLIC)
-# -------------------------
+
 @admin_bp.route("/courses", methods=["GET"])
 def get_courses():
     courses = GolfCourse.query.all()
@@ -57,9 +53,8 @@ def get_courses():
     ]), 200
 
 
-# -------------------------
 # ADD HOLE
-# -------------------------
+
 @admin_bp.route("/courses/<int:course_id>/holes", methods=["POST"])
 @admin_required
 def add_hole(course_id):
