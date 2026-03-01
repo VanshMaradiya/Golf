@@ -7,16 +7,15 @@ def add_or_update_score(user_id: int, tournament_id: int, hole_id: int, strokes:
     Add or update a score for a user in a tournament hole
     """
 
-    # --------------------
     # Validate user
-    # --------------------
+
     user = User.query.get(user_id)
     if not user:
         return False, "User not found"
 
-    # --------------------
+
     # Validate tournament
-    # --------------------
+
     tournament = Tournament.query.get(tournament_id)
     if not tournament:
         return False, "Tournament not found"
@@ -24,20 +23,20 @@ def add_or_update_score(user_id: int, tournament_id: int, hole_id: int, strokes:
     if tournament.status != "ongoing":
         return False, "Tournament is not ongoing"
 
-    # --------------------
+    
     # Validate hole
-    # --------------------
+
     hole = Hole.query.get(hole_id)
     if not hole:
         return False, "Hole not found"
 
-    # Ensure hole belongs to the tournament course
+    
     if hole.course_id != tournament.course_id:
         return False, "Hole does not belong to this tournament"
 
-    # --------------------
+
     # Add or update score
-    # --------------------
+
     try:
         score = Score.query.filter_by(
             user_id=user_id,
