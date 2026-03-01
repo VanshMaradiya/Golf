@@ -13,9 +13,6 @@ class GolfCourse(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # -------------------------
-    # RELATIONSHIPS
-    # -------------------------
     holes = db.relationship(
         "Hole",
         backref="course",
