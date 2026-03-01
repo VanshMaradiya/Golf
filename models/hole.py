@@ -18,9 +18,6 @@ class Hole(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # -------------------------
-    # CONSTRAINTS
-    # -------------------------
     __table_args__ = (
         db.UniqueConstraint(
             "course_id",
