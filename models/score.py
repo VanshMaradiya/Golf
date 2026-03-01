@@ -29,15 +29,9 @@ class Score(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # -------------------------
-    # RELATIONSHIPS
-    # -------------------------
     user = db.relationship("User", backref="scores")
     hole = db.relationship("Hole", backref="scores")
 
-    # -------------------------
-    # CONSTRAINTS
-    # -------------------------
     __table_args__ = (
         db.UniqueConstraint(
             "user_id",
