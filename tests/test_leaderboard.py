@@ -1,7 +1,7 @@
 def test_add_score(client):
-    # -------------------------
+    
     # Register admin
-    # -------------------------
+
     client.post(
         "/api/auth/register",
         json={
@@ -29,9 +29,8 @@ def test_add_score(client):
         "X-User-Role": admin_role
     }
 
-    # -------------------------
     # Create course
-    # -------------------------
+
     client.post(
         "/api/admin/courses",
         headers=admin_headers,
@@ -52,9 +51,8 @@ def test_add_score(client):
         }
     )
 
-    # -------------------------
-    # Create tournament (IMPORTANT)
-    # -------------------------
+    # Create tournament 
+   
     client.post(
         "/api/tournaments",
         headers=admin_headers,
@@ -67,9 +65,8 @@ def test_add_score(client):
         }
     )
 
-    # -------------------------
     # Register player
-    # -------------------------
+    
     client.post(
         "/api/auth/register",
         json={
@@ -97,9 +94,8 @@ def test_add_score(client):
         "X-User-Role": player_role
     }
 
-    # -------------------------
     # Add score
-    # -------------------------
+    
     response = client.post(
         "/api/scores/tournaments/1/holes/1",
         headers=player_headers,
