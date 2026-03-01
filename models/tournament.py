@@ -25,9 +25,6 @@ class Tournament(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # -------------------------
-    # RELATIONSHIPS
-    # -------------------------
     scores = db.relationship(
         "Score",
         backref="tournament",
