@@ -3,10 +3,8 @@ from models import Tournament, Score
 
 player_bp = Blueprint("player", __name__, url_prefix="/api/player")
 
-
-# ---------------------------
 # VIEW TOURNAMENTS
-# ---------------------------
+
 @player_bp.route("/tournaments", methods=["GET"])
 def view_tournaments():
     tournaments = Tournament.query.all()
@@ -21,9 +19,8 @@ def view_tournaments():
     ]), 200
 
 
-# ---------------------------
-# JOIN TOURNAMENT (NO DB INSERT)
-# ---------------------------
+# JOIN TOURNAMENT 
+
 @player_bp.route("/tournaments/<int:tournament_id>/join", methods=["POST"])
 def join_tournament(tournament_id):
     user_id = request.headers.get("X-User-Id")
@@ -52,9 +49,8 @@ def join_tournament(tournament_id):
     }), 200
 
 
-# ---------------------------
 # VIEW ALL MY SCORES
-# ---------------------------
+
 @player_bp.route("/my-scores", methods=["GET"])
 def my_scores():
     user_id = request.headers.get("X-User-Id")
