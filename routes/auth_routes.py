@@ -4,10 +4,8 @@ from models import User
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 
-
-# ---------------------------
 # REGISTER
-# ---------------------------
+
 @auth_bp.route("/register", methods=["POST"])
 def register():
     data = request.get_json(silent=True) or {}
@@ -39,9 +37,8 @@ def register():
     }), 201
 
 
-# ---------------------------
 # LOGIN (NO COOKIE)
-# ---------------------------
+
 @auth_bp.route("/login", methods=["POST"])
 def login():
     data = request.get_json(silent=True) or {}
@@ -57,7 +54,7 @@ def login():
     if not user or not user.check_password(password):
         return jsonify({"error": "Invalid credentials"}), 401
 
-    # 🔹 Just return user_id
+    #  return user_id
     return jsonify({
         "message": "Login successful",
         "user_id": user.id,
@@ -65,9 +62,8 @@ def login():
     }), 200
 
 
-# ---------------------------
-# LOGOUT (STATELESS)
-# ---------------------------
+# LOGOUT 
+
 @auth_bp.route("/logout", methods=["POST"])
 def logout():
     return jsonify({
