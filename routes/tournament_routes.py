@@ -12,9 +12,8 @@ def admin_required():
         return jsonify({"error": "Admin access required"}), 403
 
 
-# ---------------------------
 # CREATE TOURNAMENT (ADMIN)
-# ---------------------------
+
 @tournament_bp.route("", methods=["POST"])
 def create_tournament():
     auth = admin_required()
@@ -37,7 +36,7 @@ def create_tournament():
     if not course:
         return jsonify({"error": "Course not found"}), 404
 
-    # FORCE ongoing (important)
+    # FORCE ongoing 
     tournament = Tournament(
         name=name,
         course_id=course_id,
